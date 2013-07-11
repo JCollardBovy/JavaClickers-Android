@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <string name="action_settings">Configuracion</string>
+    <string name="app_name">JavaClickers</string>
+    <string name="connect_button">Connect</string>
+    <string name="connecting_text">Espere mientras el dispositivo se conecta</string>
+    <string name="connecting_title">Conectandose al servidor</string>
+    <string name="consigna_text">Consigna:</string>
+    <string name="discover_button">Discover</string>
+    <string name="fetching_information_text">Espere mientras se realiza la transferencia</string>
+    <string name="fetching_information_title">Obteniendo informacion de la materia</string>
+    <string name="host_label">Buscar servidor</string>
+    <string name="invalid_host">La IP a conectarse es invalida</string>
+    <string name="soluciones_text">Elija una de las siguientes opciones:</string>
+    <string name="temas_text">Temas a tratar:</string>
+
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+</resources>
