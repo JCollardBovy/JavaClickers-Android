@@ -12,17 +12,22 @@ import ar.unlp.info.laboratorio.javaClickers.network.operations.Operation;
  */
 public class AndroidOperator extends Operator {
 
-    //AsyncTask<Object, Object, Boolean> currentTask = null;
+    TimerAction timerAction;
 
     @Override
     public void executeTask(Operation operation, FeedBackable aFeedBackInterface) {
-//        currentTask = new ExecuteTask().execute(operation, aFeedBackInterface);
-        new ExecuteTask().execute(operation, aFeedBackInterface);
+        new ExecuteTask().executeOnExecutor(ExecuteTask.THREAD_POOL_EXECUTOR , operation, aFeedBackInterface);
     }
 
     @Override
-    public void startTimer(long secondsLeft, final TimerAction timerAction) {
-        new CountDownTimer(secondsLeft*1000, 1000){
+    public void bindTimer(TimerAction aTimerAction) {
+        this.timerAction = aTimerAction;
+    }
+
+    @Override
+    public void startTimer(long secondsLeft, final TimerAction aTimerAction) {
+        this.bindTimer(aTimerAction);
+        new CountDownTimer(secondsLeft*1000, 200){
             @Override
             public void onTick(long l) {
                 timerAction.onTick(l/1000);
@@ -49,7 +54,10 @@ public class AndroidOperator extends Operator {
         @Override
         protected void onProgressUpdate(Object... values) {
             super.onProgressUpdate(values);
-            ((FeedBackable) values[1]).taskFinished();
+            if (((Operation) values[0]).isFinished()){
+                ClientManager.getInstance().finished();
+                ((FeedBackable) values[1]).taskFinished();
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package ar.unlp.info.laboratorio.javaClickers.network.udp;
+package ar.unlp.info.laboratorio.javaClickers.network.com;
 
 import ar.unlp.info.laboratorio.javaClickers.auxiliary.Par;
 

@@ -61,4 +61,10 @@ public class Solution implements Serializable {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
+    }
 }

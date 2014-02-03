@@ -8,14 +8,14 @@ import java.nio.ByteBuffer;
 
 import ar.unlp.info.laboratorio.javaClickers.auxiliary.Par;
 import ar.unlp.info.laboratorio.javaClickers.network.Manager;
-import ar.unlp.info.laboratorio.javaClickers.network.udp.Receiver;
-import ar.unlp.info.laboratorio.javaClickers.network.udp.Sender;
+import ar.unlp.info.laboratorio.javaClickers.network.com.Receiver;
+import ar.unlp.info.laboratorio.javaClickers.network.com.Sender;
 
 
 /**
  * Created by Jony on 02/06/13.
  */
-public class ConnectOperation implements Operation {
+public class ConnectOperation extends Operation {
 
     public static final long serialVersionUID = 88L;
 
@@ -23,6 +23,7 @@ public class ConnectOperation implements Operation {
     public void executeOnClient() {
         try {
             Manager.getInstance().setServer(this.discover());
+            super.executeOnClient();
         } catch (SocketException e) {
             e.printStackTrace();
         }

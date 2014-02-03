@@ -1,10 +1,9 @@
-package ar.unlp.info.laboratorio.javaClickers.network.udp;
+package ar.unlp.info.laboratorio.javaClickers.network.com;
 
 import ar.unlp.info.laboratorio.javaClickers.auxiliary.Par;
 import ar.unlp.info.laboratorio.javaClickers.network.operations.Operation;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

@@ -5,11 +5,19 @@ import java.io.Serializable;
 /**
  * Created by Jony on 02/06/13.
  */
-public interface Operation extends Serializable{
+public abstract class Operation implements Serializable{
 
     public static final long serialVersionUID = 87L;
 
-    public void executeOnClient();
-    public void executeOnServer(Serviceable serverInterface);
+    private boolean finished = false;
 
+    public void executeOnClient(){
+        this.finished = true;
+    }
+
+    public abstract void executeOnServer(Serviceable serverInterface);
+
+    public boolean isFinished() {
+        return finished;
+    }
 }

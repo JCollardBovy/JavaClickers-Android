@@ -9,13 +9,13 @@ import java.net.SocketException;
 import ar.unlp.info.laboratorio.javaClickers.auxiliary.Par;
 import ar.unlp.info.laboratorio.javaClickers.model.Problem;
 import ar.unlp.info.laboratorio.javaClickers.network.Manager;
-import ar.unlp.info.laboratorio.javaClickers.network.udp.Receiver;
-import ar.unlp.info.laboratorio.javaClickers.network.udp.Sender;
+import ar.unlp.info.laboratorio.javaClickers.network.com.Receiver;
+import ar.unlp.info.laboratorio.javaClickers.network.com.Sender;
 
 /**
  * Created by Jony on 05/07/13.
  */
-public class ProblemOperation implements Operation {
+public class ProblemOperation extends Operation {
 
     public static final long serialVersionUID = 90L;
 
@@ -32,6 +32,7 @@ public class ProblemOperation implements Operation {
                 }
             }
             Manager.getInstance().setProblem(problem);
+            super.executeOnClient();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SocketException e) {

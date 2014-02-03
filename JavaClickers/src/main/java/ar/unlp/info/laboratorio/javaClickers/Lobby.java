@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,12 +24,42 @@ public class Lobby extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lobby);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        ClientManager.getInstance().disconnect(new FeedBackable() {
+
+                ProgressDialog spinner;
+
+                @Override
+                public void taskStarted() {
+                    this.spinner = ProgressDialog.show(Lobby.this, getText(R.string.connecting_title), getText(R.string.connecting_text), true, true);
+                }
+
+                @Override
+                public void taskFinished() {
+                    this.spinner.dismiss();
+                    ClientManager.getInstance().disconnected();
+                    goToConnection();
+                }
+        });
+        return true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        //Log.i("")
 
         if (ClientManager.getInstance().hasInformation()){
             loadInformacion();
@@ -63,10 +96,10 @@ public class Lobby extends Activity {
 
     private void loadInformacion() {
         Information information = Manager.getInstance().getInformation();
-        ((TextView) this.findViewById(R.id.asignatura)).setText(information.getAsignatura());
+        ((TextView) this.findViewById(R.id.asignatura)).setText(information.getSubject());
         ListView temasList = (ListView) findViewById(R.id.temas_list);
         temasList.setEnabled(false);
-        temasList.setAdapter(new ArrayAdapter<String>(this, R.layout.solucion_texto, information.getTemas()));
+        temasList.setAdapter(new ArrayAdapter<String>(this, R.layout.solucion_texto, information.getTopics()));
     }
 
     private void retrieveProblem() {
@@ -83,11 +116,21 @@ public class Lobby extends Activity {
         @Override
         public void taskFinished() {
             //TODO dejar de informar que se encuentra esperando
-            goToProblem(true);
+            if (ClientManager.getInstance().hasProblem()){
+                goToProblem(true);
+            }
         }
     }
 
     private void goToProblem(boolean hasNewProblem) {
-        startActivity(new Intent().setClass(this, ProblemActivity.class).putExtra("ar.unlp.info.laboratorio.javaClickers.hasNewProblem", hasNewProblem));
+        getSharedPreferences("JC_Settings", 0).edit().putBoolean("hasNewProblem", hasNewProblem).commit();
+        if (hasNewProblem){
+            getSharedPreferences("JC_Settings", 0).edit().putBoolean("solutionNotSelected", hasNewProblem).commit();
+        }
+        startActivityIfNeeded(new Intent().setClass(this, ProblemActivity.class), 0);//.putExtra("ar.unlp.info.laboratorio.javaClickers.hasNewProblem", hasNewProblem), 0);
+    }
+
+    private void goToConnection() {
+        startActivityIfNeeded(new Intent().setClass(this, MainActivity.class), 0);
     }
 }

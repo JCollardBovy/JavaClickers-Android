@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">JavaClickers</string>
-    <string name="action_settings" >Configuracion</string>
+    <string name="action_settings" >Desconectarse</string>
     <string name="connect_button">Connect</string>
     <string name="discover_button">Discover</string>
     <string name="host_label">Buscar servidor</string>
@@ -14,5 +14,6 @@
     <string name="temas_text">Temas a tratar:</string>
     <string name="fetching_information_title">Obteniendo informacion de la materia</string>
     <string name="fetching_information_text">Espere mientras se realiza la transferencia</string>
+    <string name="connected">Conexion exitosa</string>
 
 </resources>

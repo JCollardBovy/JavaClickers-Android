@@ -43,16 +43,17 @@ public final class R {
         public static final int action_settings=0x7f050000;
         public static final int app_name=0x7f050001;
         public static final int connect_button=0x7f050002;
-        public static final int connecting_text=0x7f050003;
-        public static final int connecting_title=0x7f050004;
-        public static final int consigna_text=0x7f050005;
-        public static final int discover_button=0x7f050006;
-        public static final int fetching_information_text=0x7f050007;
-        public static final int fetching_information_title=0x7f050008;
-        public static final int host_label=0x7f050009;
-        public static final int invalid_host=0x7f05000a;
-        public static final int soluciones_text=0x7f05000b;
-        public static final int temas_text=0x7f05000c;
+        public static final int connected=0x7f050003;
+        public static final int connecting_text=0x7f050004;
+        public static final int connecting_title=0x7f050005;
+        public static final int consigna_text=0x7f050006;
+        public static final int discover_button=0x7f050007;
+        public static final int fetching_information_text=0x7f050008;
+        public static final int fetching_information_title=0x7f050009;
+        public static final int host_label=0x7f05000a;
+        public static final int invalid_host=0x7f05000b;
+        public static final int soluciones_text=0x7f05000c;
+        public static final int temas_text=0x7f05000d;
     }
     public static final class style {
         /** 

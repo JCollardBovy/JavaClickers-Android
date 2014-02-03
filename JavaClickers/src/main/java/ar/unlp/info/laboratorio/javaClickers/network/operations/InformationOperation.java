@@ -6,13 +6,13 @@ import java.net.Socket;
 import ar.unlp.info.laboratorio.javaClickers.auxiliary.Par;
 import ar.unlp.info.laboratorio.javaClickers.model.Information;
 import ar.unlp.info.laboratorio.javaClickers.network.Manager;
-import ar.unlp.info.laboratorio.javaClickers.network.udp.Receiver;
-import ar.unlp.info.laboratorio.javaClickers.network.udp.Sender;
+import ar.unlp.info.laboratorio.javaClickers.network.com.Receiver;
+import ar.unlp.info.laboratorio.javaClickers.network.com.Sender;
 
 /**
  * Created by Jony on 02/06/13.
  */
-public class InformationOperation implements Operation {
+public class InformationOperation extends Operation {
 
     public static final long serialVersionUID = 89L;
 
@@ -20,6 +20,7 @@ public class InformationOperation implements Operation {
     public void executeOnClient() {
         try {
             Manager.getInstance().setInformation(this.getInformation());
+            super.executeOnClient();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

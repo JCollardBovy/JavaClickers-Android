@@ -13,7 +13,7 @@ import java.util.Random;
  * Time: 15:57
  * To change this template use File | Settings | File Templates.
  */
-public class WorkerOperation implements Operation {
+public class WorkerOperation extends Operation {
 
     public static final long serialVersionUID = 92L;
 
@@ -26,6 +26,7 @@ public class WorkerOperation implements Operation {
 
     @Override
     public void executeOnClient() {
+        super.executeOnClient();
     }
 
     @Override

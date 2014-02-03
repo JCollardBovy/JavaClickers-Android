@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,27 +37,64 @@ public class ProblemActivity extends Activity {
 
         });
 
+        /*if (this.getSharedPreferences("JC_Settings", 0).getBoolean("solutionNotSelected", true)){
+            getSharedPreferences("JC_Settings", 0).edit().putBoolean("solutionNotSelected", true).commit();
+        }*/
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        getSharedPreferences("JC_Settings", 0).edit().putBoolean("solutionNotSelected", findViewById(R.id.soluciones_list).isEnabled()).commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getSharedPreferences("JC_Settings", 0).edit().remove("solutionNotSelected").commit();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (this.getIntent().getBooleanExtra("ar.unlp.info.laboratorio.javaClickers.hasNewProblem", false)){
-            ClientManager.getInstance().startTimer(new TimerAction(){
 
-                @Override
-                public void onTick(long secondsLeft) {
-                    tick(secondsLeft);
-                }
-
-                @Override
-                public void onFinish() {
-                    goToLobby();
-                }
-            });
-        }
-        if (Manager.getInstance().getProblem() != null){
+        if (ClientManager.getInstance().hasProblem()){
             this.loadProblem();
+            Log.i("[JC]", "SolutionNotSelected: " + String.valueOf(this.getSharedPreferences("JC_Settings", 0).getBoolean("solutionNotSelected", true)).toString());
+            setSelection((this.getSharedPreferences("JC_Settings", 0).getBoolean("solutionNotSelected", true)));
+            Log.i("[JC]", "HasNewProblem: " + String.valueOf(this.getSharedPreferences("JC_Settings", 0).getBoolean("hasNewProblem", false)).toString());
+            if (this.getSharedPreferences("JC_Settings", 0).getBoolean("hasNewProblem", false)){
+                Log.i("[JC]", "Start Timer");
+                ClientManager.getInstance().startTimer(new TimerAction() {
+
+                    @Override
+                    public void onTick(long secondsLeft) {
+                        tick(secondsLeft);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        //ClientManager.getInstance().setProblem(null);
+                        goToLobby();
+                    }
+                });
+                getSharedPreferences("JC_Settings", 0).edit().putBoolean("hasNewProblem", false).commit();
+            }else{
+                ClientManager.getInstance().bindTimer(new TimerAction(){
+
+                    @Override
+                    public void onTick(long secondsLeft) {
+                        tick(secondsLeft);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        //ClientManager.getInstance().setProblem(null);
+                        goToLobby();
+                    }
+                });
+            }
         }else{
             goToLobby();
         }
@@ -67,7 +105,7 @@ public class ProblemActivity extends Activity {
     }
 
     private void goToLobby() {
-        startActivity(new Intent().setClass(this, Lobby.class));
+        startActivityIfNeeded(new Intent().setClass(this, Lobby.class), 0);
     }
 
     private void loadProblem() {
@@ -81,7 +119,7 @@ public class ProblemActivity extends Activity {
                 .setCancelable(false)
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        disableSelection();
+                        setSelection(false);
                         ClientManager.getInstance().newSolution(answer);
                     }
                 })
@@ -92,9 +130,11 @@ public class ProblemActivity extends Activity {
                 }).create().show();
     }
 
-    private void disableSelection(){
-        ((ListView) findViewById(R.id.soluciones_list)).setEnabled(false);
-        ((ListView) findViewById(R.id.soluciones_list)).setBackgroundColor(Color.GRAY);
+    private void setSelection(Boolean enabled){
+        findViewById(R.id.soluciones_list).setEnabled(enabled);
+        if (!enabled){
+            findViewById(R.id.soluciones_list).setBackgroundColor(Color.GRAY);
+        }
     }
 
 

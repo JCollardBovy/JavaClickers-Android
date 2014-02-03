@@ -1,5 +1,6 @@
 package ar.unlp.info.laboratorio.javaClickers.network;
 
+import ar.unlp.info.laboratorio.javaClickers.FeedBackable;
 import ar.unlp.info.laboratorio.javaClickers.TimerAction;
 import ar.unlp.info.laboratorio.javaClickers.model.Information;
 import ar.unlp.info.laboratorio.javaClickers.model.Problem;
@@ -81,4 +82,6 @@ public abstract class Manager{
     }
 
     public abstract void newSolution(Solution aSolution);
+
+    public abstract void disconnect(Object aDisconnectParam);
 }

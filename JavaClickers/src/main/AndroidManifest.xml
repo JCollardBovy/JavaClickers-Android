@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="ar.unlp.info.laboratorio.javaClickers.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -26,10 +27,12 @@
         </activity>
         <activity
             android:name="ar.unlp.info.laboratorio.javaClickers.Lobby"
-            android:label="JavaClickers"></activity>
+            android:label="JavaClickers"
+            android:screenOrientation="portrait"></activity>
         <activity
                 android:name="ar.unlp.info.laboratorio.javaClickers.ProblemActivity"
-                android:label="JavaClickers"></activity>
+                android:label="JavaClickers"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -20,4 +20,6 @@ public abstract class Operator {
     protected abstract void executeTask(Operation operation, FeedBackable aFeedBackInterface);
 
     public abstract void startTimer(long secondsLeft, TimerAction timerAction);
+
+    public void bindTimer(TimerAction aTimerAction){}
 }

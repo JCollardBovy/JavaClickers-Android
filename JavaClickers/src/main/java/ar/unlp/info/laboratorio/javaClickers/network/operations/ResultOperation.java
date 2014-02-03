@@ -3,7 +3,7 @@ package ar.unlp.info.laboratorio.javaClickers.network.operations;
 /**
  * Created by Jony on 03/06/13.
  */
-public class ResultOperation<E> implements Operation{
+public class ResultOperation<E> extends Operation {
 
     public static final long serialVersionUID = 91L;
 
@@ -22,6 +22,7 @@ public class ResultOperation<E> implements Operation{
 
     @Override
     public void executeOnClient() {
+        super.executeOnClient();
     }
 
     @Override
